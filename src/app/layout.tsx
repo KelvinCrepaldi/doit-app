@@ -2,6 +2,8 @@ import { UserProvider } from "@/context/UserContext";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
+import { TaskProvider } from "@/context/TaskContext";
+import { SignupProvider } from "@/context/SignupContext";
 
 const roboto = Roboto({
   display: "swap",
@@ -23,7 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${roboto.variable}`}>
       <UserProvider>
-        <body className="font-roboto">{children}</body>
+        <SignupProvider>
+          <TaskProvider>
+            <body className="font-roboto">{children}</body>
+          </TaskProvider>
+        </SignupProvider>
       </UserProvider>
     </html>
   );

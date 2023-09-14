@@ -36,6 +36,7 @@ export const LoginForm = () => {
     <motion.form
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
+      transition={{ type: "tween", duration: 0.3 }}
       onSubmit={handleSubmit(handleLogin)}
       className="flex flex-col min-w-[300px] items-center"
     >
@@ -66,13 +67,13 @@ export const LoginForm = () => {
             Login
           </Button>
         )}
-        <p className="mt-3">
-          Não tem uma conta? Faça seu{" "}
-          <Link href={"/signup"} className="text-doit-orange-text font-bold">
-            cadastro
-          </Link>
-        </p>
       </div>
+      <p className="mt-3">
+        Não tem uma conta? Faça seu{" "}
+        <Link href={"/signup"} className="text-doit-orange-text font-bold">
+          cadastro
+        </Link>
+      </p>
     </motion.form>
   );
 };

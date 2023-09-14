@@ -20,14 +20,13 @@ const Input = ({
 }: InputProps) => {
   return (
     <div className="flex flex-col w-full">
-      <label className="text-base font-bold">{label}</label>
+      <label className=" text-sm md:text-base font-bold">{label}</label>
       <Controller
         name={name}
         control={control}
         render={({ field: { ref, ...field } }) => (
           <input
-            className=" h-[60px] bg-white border-2 border-black rounded-[10px] w-full"
-            placeholder=" titulo do placeholder"
+            className=" h-[45px] md:h-[60px] border-b-2 border-black rounded-[4px] w-full px-2 bg-[rgb(255,255,255,0.3)]"
             ref={ref}
             disabled={disabled}
             {...props}

@@ -9,7 +9,10 @@ const signupSchema = yup.object().shape({
     .string()
     .required("Escreva uma senha.")
     .min(6, "Senha precisa ter no minimo 6 caracteres."),
-  confirmPassword: yup.string().required("Confirme a senha."),
+  confirmPassword: yup
+    .string()
+    .required("Escreva uma senha.")
+    .oneOf([yup.ref("password")], "As senhas não são iguais!"),
 });
 
 export default signupSchema;

@@ -10,10 +10,13 @@ import signupSchema from "./schema";
 import { ISinupRequest } from "@/interfaces/signup.interfaces";
 import api from "@/services";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { SignupContext } from "@/context/SignupContext";
 
 export const SignupForm = () => {
   const router = useRouter();
   const { token } = useContext(UserContext);
+  const { loading, error, signup } = useContext(SignupContext);
 
   const {
     handleSubmit,
@@ -27,23 +30,19 @@ export const SignupForm = () => {
     }
   }, [token, router]);
 
-  const handleLogin = async (e: ILoginRequest) => {
-    try {
-      const res = await api.post("/auth/signup/", e);
-      const data = res.data;
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+  const handleLogin = async (data: ILoginRequest) => {
+    signup(data);
   };
 
   return (
     <motion.form
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
+      transition={{ type: "tween", duration: 0.3 }}
       onSubmit={handleSubmit(handleLogin)}
       className="flex flex-col min-w-[300px] items-center"
     >
+      <h1 className="text-5xl mb-10 ">Cadastro</h1>
       <Input
         control={control}
         label="Name:"
@@ -61,24 +60,34 @@ export const SignupForm = () => {
         label="Senha:"
         error={errors.password?.message}
         name="password"
+        type="password"
       ></Input>
       <Input
         control={control}
         label="Confirmar senha:"
         error={errors.confirmPassword?.message}
         name="confirmPassword"
+        type="password"
       ></Input>
-
       <div className="mt-10 flex flex-col items-center">
         {<div className=" max-w-[300px] text-center text-red-700">{}</div>}
-        {false ? (
+        {error && (
+          <div className=" max-w-[300px] text-center text-red-700">{error}</div>
+        )}
+        {loading ? (
           <LoadingSpinner />
         ) : (
           <Button customStyle="secondary" type="submit">
-            Login
+            Cadastrar
           </Button>
         )}
       </div>
+      <p className="mt-3">
+        Já tem uma conta? Faça seu{" "}
+        <Link href={"/login"} className="text-doit-orange-text font-bold">
+          login
+        </Link>
+      </p>
     </motion.form>
   );
 };

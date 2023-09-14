@@ -6,6 +6,7 @@ import taskSchema from "./schema";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/context/UserContext";
 import api from "@/services";
+import { TaskContext } from "@/context/TaskContext";
 
 interface TaskType {
   title: string;
@@ -20,23 +21,10 @@ const TaskCreate = (): JSX.Element => {
     resolver: yupResolver(taskSchema),
     defaultValues: { title: "" },
   });
-  const [date, setDate] = useState<string>("");
-  const { token } = useContext(UserContext);
+  const { createTask } = useContext(TaskContext);
 
-  useEffect(() => {
-    setDate(new Date().toLocaleString());
-  }, []);
-
-  const taskSubmit = async (data: TaskType) => {
-    const sendData = {
-      title: data.title,
-      message: "",
-    };
-    if (token) {
-      await api.post("/task", sendData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-    }
+  const taskSubmit = (data: TaskType) => {
+    createTask(data);
   };
   return (
     <form
@@ -46,11 +34,11 @@ const TaskCreate = (): JSX.Element => {
       <Input
         control={control}
         error={errors.title?.message}
-        label={date || "//"}
+        label="Criar nova atividade..."
         name="title"
         suppressHydrationWarning
       />
-      <div className="mt-6">
+      <div className="mt-4 md:mt-5">
         <Button customStyle="secondary" type="submit">
           Adicionar
         </Button>

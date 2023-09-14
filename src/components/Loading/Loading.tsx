@@ -2,7 +2,10 @@
 
 function LoadingSpinner(): JSX.Element {
   return (
-    <div className=" inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text motion-reduce:animate-[spin_1.5s_linear_infinite] border-red-600"></div>
+    <div className="w-full flex flex-col items-center">
+      <div className="w-12 h-12 rounded-full animate-spin border-y border-solid border-doit-green-text border-t-transparent shadow-md"></div>
+      <p className="text-doit-green-text font-bold">Carregando...</p>
+    </div>
   );
 }
 
