@@ -47,16 +47,14 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       const res = await api.post("/auth/login/", body);
       const data = res.data;
 
-      if (res.statusText === "OK") {
-        setUser(data.user);
-        setToken(data.token);
+      setUser(data.user);
+      setToken(data.token);
 
-        const localUser = JSON.stringify(data.user);
-        const localToken = JSON.stringify(data.token);
+      const localUser = JSON.stringify(data.user);
+      const localToken = JSON.stringify(data.token);
 
-        localStorage.setItem("@doit:user", localUser);
-        localStorage.setItem("@doit:token", localToken);
-      }
+      localStorage.setItem("@doit:user", localUser);
+      localStorage.setItem("@doit:token", localToken);
     } catch (error: any) {
       console.log(error);
       setError(error.response.data.message);
