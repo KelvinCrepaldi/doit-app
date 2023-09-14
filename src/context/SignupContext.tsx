@@ -20,7 +20,7 @@ export const SignupProvider = ({ children }: { children: ReactNode }) => {
       const res = await api.post("/auth/signup/", body);
       const data = res.data;
 
-      if (res.statusText === "OK") {
+      if (res.status === 200) {
         router.push("/login");
       }
     } catch (error: any) {
